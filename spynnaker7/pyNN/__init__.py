@@ -22,6 +22,8 @@ from spynnaker.pyNN.models.neuron.builds.if_curr_dual_exp_base \
     import IFCurrDualExpBase as IF_curr_dual_exp
 from spynnaker.pyNN.models.neuron.builds.if_curr_exp_base \
     import IFCurrExpBase as IF_curr_exp
+from spynnaker.pyNN.models.neuron.builds.if_curr_exp_semd_base \
+    import IFCurrExpSEMDBase as IF_curr_exp_sEMD
 from spynnaker.pyNN.models.neuron.builds.izk_cond_exp_base \
     import IzkCondExpBase as IZK_cond_exp
 from spynnaker.pyNN.models.neuron.builds.izk_curr_exp_base \
