@@ -96,7 +96,7 @@ __all__ = [
     'MultapseConnector', 'OneToOneConnector', 'FixedNumberPostConnector',
     'DistanceDependentProbabilityConnector', 'SynapseDynamics',
     'STDPMechanism', 'AdditiveWeightDependence', 'SpikePairRule',
-    'MultiplicativeWeightDependence',
+    'MultiplicativeWeightDependence', 'IF_curr_exp_sEMD',
     # Stuff from pyNN.random
     'NumpyRNG', 'RandomDistribution',
     # Stuff from pyNN.space
