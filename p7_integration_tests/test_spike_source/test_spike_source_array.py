@@ -1,10 +1,11 @@
-import unittest
 import spynnaker7.pyNN as p
+from p7_integration_tests.base_test_case import BaseTestCase
 import numpy
 import random
+import unittest
 
 
-class MyTestCase(unittest.TestCase):
+class MyTestCase(BaseTestCase):
     __name__ = "bOB"
 
     def test_recording_1_element(self):
@@ -47,8 +48,6 @@ class MyTestCase(unittest.TestCase):
 
         p.end()
 
-    @unittest.skip("Broken p7_integration_tests/"
-                   "test_spike_source/test_spike_source_array.py")
     def test_recording_numerious_element(self):
         p.setup(timestep=1.0, min_delay=1.0, max_delay=144.0)
         n_neurons = 20  # number of neurons in each population
@@ -72,10 +71,10 @@ class MyTestCase(unittest.TestCase):
         spike_array = list()
         for neuron_id in range(0, n_neurons):
             spike_array.append(list())
-            for random_time in range(0, 20):
-                random_time2 = random.randint(0, 5000)
+            for counter in range(0, 20):
+                random_time = random.randint(0, 5000)
                 boxed_array = numpy.append(
-                    boxed_array, [[neuron_id, random_time2]], axis=0)
+                    boxed_array, [[neuron_id, random_time]], axis=0)
                 spike_array[neuron_id].append(random_time)
         spike_array_params = {'spike_times': spike_array}
         populations.append(p.Population(n_neurons, p.IF_curr_exp,
