@@ -27,7 +27,7 @@ from spynnaker7.pyNN.models.plasticity_components.weight_dependence \
 __all__ = [
     # spynnaker 7 models
     'IFCurrDelta', 'IFCurrExpCa2Adaptive', 'IFCondExpStoc',
-    'IZK_curr_exp', 'IZK_cond_exp', 'IF_curr_dual_exp',
+    'IZK_curr_exp', 'IZK_cond_exp', 'IF_curr_dual_exp', 'IF_curr_exp_sEMD'
 
     # spynnaker 7 plastic stuff
     'AdditiveTripletWeightDependence',
