@@ -19,16 +19,9 @@ from spynnaker.pyNN.models.neural_projections.projection_application_edge \
     import ProjectionApplicationEdge
 from spynnaker.pyNN.models.neuron.builds.if_cond_exp_base \
     import IFCondExpBase as IF_cond_exp
-from spynnaker.pyNN.models.neuron.builds.if_curr_dual_exp_base \
-    import IFCurrDualExpBase as IF_curr_dual_exp
 from spynnaker.pyNN.models.neuron.builds.if_curr_exp_base \
     import IFCurrExpBase as IF_curr_exp
-from spynnaker.pyNN.models.neuron.builds.if_curr_exp_semd_base \
-    import IFCurrExpSEMDBase as IF_curr_exp_sEMD
-from spynnaker.pyNN.models.neuron.builds.izk_cond_exp_base \
-    import IzkCondExpBase as IZK_cond_exp
-from spynnaker.pyNN.models.neuron.builds.izk_curr_exp_base \
-    import IzkCurrExpBase as IZK_curr_exp
+
 from spynnaker.pyNN.models.neuron.synapse_dynamics.pynn_synapse_dynamics \
     import PyNNSynapseDynamics as SynapseDynamics
 from spynnaker.pyNN.models.neuron.synapse_dynamics.synapse_dynamics_stdp \
@@ -71,6 +64,10 @@ from spynnaker7.pyNN.models.plasticity_components.weight_dependence.\
 from spynnaker7.pyNN.models.plasticity_components.weight_dependence \
     .weight_dependence_multiplicative \
     import WeightDependenceMultiplicative as MultiplicativeWeightDependence
+
+from spynnaker7.pyNN import external_devices
+from spynnaker7.pyNN import extra_models
+
 from spynnaker7.pyNN.spinnaker import Spinnaker as __Spinnaker
 from spynnaker7._version import __version__  # NOQA
 from spynnaker7._version import __version_name__  # NOQA
@@ -87,8 +84,8 @@ __all__ = [
     # Ugly, but tests expect it
     'utility_calls',
     # Implementations of the neuroscience models
-    'IF_cond_exp', 'IF_curr_dual_exp', 'IF_curr_exp', 'IZK_curr_exp',
-    'IZK_cond_exp', 'DelayAfferentApplicationEdge', 'DelayExtensionVertex',
+    'IF_cond_exp', 'IF_curr_exp',
+    'DelayAfferentApplicationEdge', 'DelayExtensionVertex',
     'ProjectionApplicationEdge', 'SpikeSourcePoisson', 'SpikeSourceArray',
     'SpikeSourceFromFile', 'AllToAllConnector', 'FixedNumberPreConnector',
     'FixedProbabilityConnector', 'FromListConnector', 'FromFileConnector',
@@ -101,6 +98,8 @@ __all__ = [
     # Stuff from pyNN.space
     'distance', 'Space', 'Line', 'Grid2D', 'Grid3D', 'Cuboid', 'Sphere',
     'RandomStructure',
+    # External devices and extra models
+    'external_devices', 'extra_models',
     # Stuff that we define
     'end', 'setup', 'run', 'get_spynnaker',
     'num_processes', 'rank', 'reset', 'set_number_of_neurons_per_core',
@@ -147,7 +146,7 @@ def rank():
 def reset():
     """ Reset the time to zero, and start the clock.
     """
-    globals_variables.get_simulator().reset()
+    globals_variables.get_not_running_simulator().reset()
 
 
 def run(run_time=None):
@@ -219,7 +218,7 @@ def set_number_of_neurons_per_core(neuron_type, max_permitted):
         else:
             raise Exception("Unknown Vertex Type {}".format(neuron_type))
 
-    simulator = globals_variables.get_simulator()
+    simulator = globals_variables.get_not_running_simulator()
     simulator.set_number_of_neurons_per_core(neuron_type, max_permitted)
 
 
@@ -246,7 +245,9 @@ def Population(size, cellclass, cellparams, structure=None, label=None):
     :param label: the human readable label
     :return: a new population object
     """
-    return globals_variables.get_simulator().create_population(
+
+    globals_variables.get_simulator().verify_not_running()
+    return globals_variables.get_not_running_simulator().create_population(
         size, cellclass, cellparams, structure, label)
 
 
@@ -266,8 +267,8 @@ def Projection(presynaptic_population, postsynaptic_population,
     :param rng: random number generator if needed
     :return: a new Projection object
     """
-
-    return globals_variables.get_simulator().create_projection(
+    globals_variables.get_simulator().verify_not_running()
+    return globals_variables.get_not_running_simulator().create_projection(
         presynaptic_population, postsynaptic_population, connector, source,
         target, synapse_dynamics, label, rng)
 
