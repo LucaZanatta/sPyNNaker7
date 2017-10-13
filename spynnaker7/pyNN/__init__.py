@@ -89,7 +89,7 @@ __all__ = [
     'SpikeSourceFromFile', 'AllToAllConnector', 'FixedNumberPreConnector',
     'FixedProbabilityConnector', 'FromListConnector', 'FromFileConnector',
     'MultapseConnector', 'OneToOneConnector', 'FixedNumberPostConnector',
-    'DistanceDependentProbabilityConnector' 'SmallWorldConnector',
+    'DistanceDependentProbabilityConnector', 'SmallWorldConnector',
     'SynapseDynamics', 'STDPMechanism', 'AdditiveWeightDependence',
     'SpikePairRule', 'MultiplicativeWeightDependence',
     # Stuff from pyNN.random
