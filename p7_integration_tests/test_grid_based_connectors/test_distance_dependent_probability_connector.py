@@ -17,26 +17,25 @@ def do_run(plot):
                        'v_thresh': -40.0
                        }
 
-
     def create_grid(n, label, dx=1.0, dy=1.0):
         grid_structure = p.Grid2D(dx=dx, dy=dy, x0=0.0, y0=0.0)
         return p.Population(n*n, p.IF_curr_exp, cell_params_lif,
                             structure=grid_structure, label=label)
 
-
     # Parameters
     n = 10
     weight_to_spike = 5.0
-    delay = 2
+    delay = 5
     runtime = 200
 
     # Network population
     grid = create_grid(n, 'grid')
 
     # SpikeInjector
-    injectionConnection = [(0, 0, weight_to_spike, 5)]
+    injectionConnection = [(0, 0, weight_to_spike, delay)]
     spikeArray = {'spike_times': [[0]]}
-    inj_pop = p.Population(1, p.SpikeSourceArray, spikeArray, label='inputSpikes_1')
+    inj_pop = p.Population(1, p.SpikeSourceArray, spikeArray,
+                           label='inputSpikes_1')
 
     # Injector projection
     p.Projection(inj_pop, grid, p.FromListConnector(injectionConnection))
@@ -99,6 +98,7 @@ class DistanceDependentProbabilityConnectorTest(BaseTestCase):
     def test_run(self):
         v, spikes = do_run(plot=False)
         # any checks go here
+
 
 if __name__ == '__main__':
     v, spikes = do_run(plot=True)

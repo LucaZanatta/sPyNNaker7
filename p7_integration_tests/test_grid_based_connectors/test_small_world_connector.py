@@ -23,12 +23,11 @@ def do_run(plot):
         return p.Population(n*n, p.IF_curr_exp, cell_params_lif,
                             structure=grid_structure, label=label)
 
-
     # Parameters
     n = 5
     weight_to_spike = 5.0
     delay = 2
-    runtime=1000
+    runtime = 1000
 
     # Network
     small_world = create_grid(n, 'small_world')
@@ -36,10 +35,12 @@ def do_run(plot):
     # SpikeInjector
     injectionConnection = [(0, 0, weight_to_spike, delay)]
     spikeArray = {'spike_times': [[0]]}
-    inj_pop = p.Population(1, p.SpikeSourceArray, spikeArray, label='inputSpikes_1')
+    inj_pop = p.Population(1, p.SpikeSourceArray, spikeArray,
+                           label='inputSpikes_1')
 
     # Injector projection
-    p.Projection(inj_pop, small_world, p.FromListConnector(injectionConnection))
+    p.Projection(inj_pop, small_world,
+                 p.FromListConnector(injectionConnection))
 
     # Connectors
     degree = 2
@@ -91,6 +92,7 @@ class SmallWorldConnectorTest(BaseTestCase):
     def test_run(self):
         v, spikes = do_run(plot=False)
         # any checks go here
+
 
 if __name__ == '__main__':
     v, spikes = do_run(plot=True)
