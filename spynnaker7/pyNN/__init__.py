@@ -89,9 +89,9 @@ __all__ = [
     'SpikeSourceFromFile', 'AllToAllConnector', 'FixedNumberPreConnector',
     'FixedProbabilityConnector', 'FromListConnector', 'FromFileConnector',
     'MultapseConnector', 'OneToOneConnector', 'FixedNumberPostConnector',
-    'DistanceDependentProbabilityConnector', 'SynapseDynamics',
-    'STDPMechanism', 'AdditiveWeightDependence', 'SpikePairRule',
-    'MultiplicativeWeightDependence',
+    'DistanceDependentProbabilityConnector' 'SmallWorldConnector',
+    'SynapseDynamics', 'STDPMechanism', 'AdditiveWeightDependence',
+    'SpikePairRule', 'MultiplicativeWeightDependence',
     # Stuff from pyNN.random
     'NumpyRNG', 'RandomDistribution',
     # Stuff from pyNN.space
