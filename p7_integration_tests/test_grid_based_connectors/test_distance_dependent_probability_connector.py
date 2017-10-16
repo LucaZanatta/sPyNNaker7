@@ -98,6 +98,7 @@ class DistanceDependentProbabilityConnectorTest(BaseTestCase):
     def test_run(self):
         v, spikes = do_run(plot=False)
         # any checks go here
+        self.assertEquals(6101, len(spikes))
 
 
 if __name__ == '__main__':

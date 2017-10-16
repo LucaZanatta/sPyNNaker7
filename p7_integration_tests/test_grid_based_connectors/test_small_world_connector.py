@@ -92,6 +92,7 @@ class SmallWorldConnectorTest(BaseTestCase):
     def test_run(self):
         v, spikes = do_run(plot=False)
         # any checks go here
+        self.assertEquals(25000, len(v))
 
 
 if __name__ == '__main__':
