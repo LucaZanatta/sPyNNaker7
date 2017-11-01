@@ -19,8 +19,9 @@ from spynnaker.pyNN.models.neuron.builds.if_cond_exp_base \
     import IFCondExpBase as IF_cond_exp
 from spynnaker.pyNN.models.neuron.builds.if_curr_exp_base \
     import IFCurrExpBase as IF_curr_exp
-from spynnaker.pyNN.models.neuron.builds.if_curr_exp_supervision \
-     import IFCurrExpSupervision as IF_curr_exp_izhikevich_neuromodulation
+from spynnaker.pyNN.models.neuron.builds. \
+     if_curr_exp_izhikevich_neuromodulation\
+     import IFCurrExpIzhikevichNeuromodulation as IF_curr_exp_izhikevich_neuromodulation
 from spynnaker.pyNN.models.neuron.synapse_dynamics.pynn_synapse_dynamics \
     import PyNNSynapseDynamics as SynapseDynamics
 from spynnaker.pyNN.models.neuron.synapse_dynamics.synapse_dynamics_stdp \
