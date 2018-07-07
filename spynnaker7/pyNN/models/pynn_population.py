@@ -26,35 +26,26 @@ class Population(PyNNPopulationCommon, RecordingCommon):
     :param structure: a spatial structure
     :param label: a label identifying the Population
     :type label: str
+    :param additional_parameters: Any population-level parameters supported
+    :type additional_parameters: dict or None
     """
 
     def __init__(self, size, cellclass, cellparams, spinnaker, label,
-                 structure=None):
+                 structure=None, additional_parameters=None):
 
         size = self._roundsize(size, label)
 
-        internal_cellparams = dict(cellparams)
-
-        # set spinnaker targeted parameters
-        model_label = None
-        if 'label' in internal_cellparams:
-            model_label = internal_cellparams['label']
-        internal_cellparams['label'] = self.create_label(model_label, label)
-        internal_cellparams['n_neurons'] = size
+        # get a label
+        model_label = self.create_label(None, label)
 
         # create population vertex.
-        vertex = cellclass(**internal_cellparams)
+        model = cellclass(**cellparams)
 
         super(Population, self).__init__(
-            spinnaker_control=spinnaker, size=size, vertex=vertex,
-            initial_values=None, structure=structure)
+            spinnaker_control=spinnaker, size=size, label=model_label,
+            constraints=None, model=model, structure=structure,
+            initial_values=None, additional_parameters=additional_parameters)
         RecordingCommon.__init__(self, population=self)
-
-    @property
-    def default_parameters(self):
-        """ The default parameters of the vertex from this population
-        """
-        return self._vertex.default_parameters
 
     def describe(self, template='population_default.txt', engine='default'):
         """ Returns a human-readable description of the population.
@@ -203,7 +194,7 @@ class Population(PyNNPopulationCommon, RecordingCommon):
         :param distribution: the distribution used to draw random values.
         :type distribution: pyNN.random.RandomDistribution
         """
-        self.initialize('v', distribution)
+        self._initialize('v', distribution)
         self._change_requires_mapping = True
 
     def record(self, to_file=None, sampling_interval=None, indexes=None):
