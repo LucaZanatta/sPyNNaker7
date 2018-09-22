@@ -33,16 +33,11 @@ class Population(PyNNPopulationCommon, RecordingCommon):
     def __init__(self, size, cellclass, cellparams, spinnaker, label,
                  structure=None, additional_parameters=None):
 
-        size = self._roundsize(size, label)
-
-        # get a label
-        model_label = self.create_label(None, label)
-
         # create population vertex.
         model = cellclass(**cellparams)
 
         super(Population, self).__init__(
-            spinnaker_control=spinnaker, size=size, label=model_label,
+            spinnaker_control=spinnaker, size=size, label=label,
             constraints=None, model=model, structure=structure,
             initial_values=None, additional_parameters=additional_parameters)
         RecordingCommon.__init__(self, population=self)
@@ -106,7 +101,7 @@ class Population(PyNNPopulationCommon, RecordingCommon):
         self._compatible_output_and_gather_warnings(compatible_output, gather)
         (exc_data, exc_ids, exc_sampling_interval) = \
             self._get_recorded_matrix("gsyn_exc")
-        (inh_data, inh_ids, inh_sampling_interval) = \
+        (inh_data, _inh_ids, _inh_sampling_interval) = \
             self._get_recorded_matrix("gsyn_inh")
         # TODO this needs fixing for to check ids and interval are the same
         return self.pynn7_format(
